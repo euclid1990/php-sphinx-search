@@ -1,0 +1,38 @@
+{
+    "name": "euclid1990/php-sphinx-search",
+    "description": "PHP Sphinx search tool.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nguyen Van Vuong",
+            "email": "euclid1990@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "illuminate/config": "~5.0",
+        "illuminate/support": "~5.0",
+        "foolz/sphinxql-query-builder": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "euclid1990\\PhpSphinxSearch\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests"
+        ],
+        "psr-4": {
+            "euclid1990\\PhpSphinxSearch\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
