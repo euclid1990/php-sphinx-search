@@ -17,3 +17,14 @@ $limit = 10;
 $result = $sphinxSearch->search($keyword, $matchs, $table, $columns, $offset, $limit);
 echo "Search results for keyword: [$keyword].\n";
 print_r($result->toArray());
+
+echo "\n============================================================\n";
+
+// Using SphinxApi Client
+$keyword = 'project source';
+$result = $sphinxSearch->sphinxApi()
+            ->setMatchMode(SPH_MATCH_ANY)
+                ->setFilter('category', [1, 3])
+                    ->query($keyword, $table);
+echo "Search results match any for keyword: [$keyword].\n";
+print_r($result);

@@ -59,3 +59,15 @@ if (!function_exists('sphinx_ql')) {
         return app('sphinx_search')->sphinxQL();
     }
 }
+
+if (!function_exists('sphinx_api')) {
+    /**
+     * Get sphinxApi
+     *
+     * @return mixed
+     */
+    function sphinx_api()
+    {
+        return app('sphinx_search')->sphinxApi();
+    }
+}

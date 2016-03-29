@@ -148,6 +148,13 @@ sphinx_raw($query);
 // Get sphinxQL
 $sphinxQL = sphinx_ql();
 $sphinxQL->select()->from($table)->execute();
+
+// Get sphinxApi
+$keyword = 'the source';
+$tables = 'posts'
+$resultApi = sphinx_api()->setMatchMode(SPH_MATCH_ANY)
+                ->setFilter('category', [3])
+                    ->query($keyword, $table);
 ```
 
 [Click to view Result](https://raw.githubusercontent.com/euclid1990/php-sphinx-search/master/demo/images/preview.png)
@@ -212,7 +219,7 @@ Or
 ```
 sudo indexer --all --rotate
 ```
-![Indexer](https://raw.githubusercontent.com/euclid1990/php-sphinx-search/master/demo/images/indexer.png)
+[Indexer](https://raw.githubusercontent.com/euclid1990/php-sphinx-search/master/demo/images/indexer.png)
 
 - Start sphinx service
 ```
@@ -227,9 +234,15 @@ Or
 ```
 sudo searchd
 ```
-![Searchd](https://raw.githubusercontent.com/euclid1990/php-sphinx-search/master/demo/images/searchd.png)
+[Searchd](https://raw.githubusercontent.com/euclid1990/php-sphinx-search/master/demo/images/searchd.png)
 
 - Check Sphinx is listening port 9306:
 ```
 netstat -anp | grep LIST
 ```
+
+- Connect with mysql client:
+```
+mysql -h0 -P9306
+```
+[Connect via MySQL Client](https://raw.githubusercontent.com/euclid1990/php-sphinx-search/master/demo/images/connect_via_mysql_client.png)

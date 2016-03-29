@@ -13,6 +13,7 @@ use Foolz\SphinxQL\SphinxQL;
 use Foolz\SphinxQL\Connection;
 use Illuminate\Config\Repository;
 use Illuminate\Support\Collection;
+use euclid1990\PhpSphinxSearch\SphinxApi;
 
 class SphinxSearch {
 
@@ -20,6 +21,21 @@ class SphinxSearch {
      * @var Repository
      */
     protected $config;
+
+    /**
+     * @var SphinxApi
+     */
+    protected $sphinxApi;
+
+    /**
+     * @var string
+     */
+    protected $apiHost = null;
+
+    /**
+     * @var string
+     */
+    protected $apiPort = null;
 
     /**
      * @var SphinxQL
@@ -34,12 +50,12 @@ class SphinxSearch {
     /**
      * @var string
      */
-    protected $host;
+    protected $qlHost = null;
 
     /**
      * @var string
      */
-    protected $port;
+    protected $qlPort = null;
 
     /**
      * @var int
@@ -55,9 +71,8 @@ class SphinxSearch {
     {
         $this->config = $config;
         $this->configure();
-        $this->connection = new Connection();
-        $this->connection->setParams(['host' => $this->host, 'port' => $this->port]);
-        $this->sphinxQL = new SphinxQL($this->connection);
+        $this->openSphinxApi();
+        $this->openSphinxQL();
     }
 
     /**
@@ -83,6 +98,33 @@ class SphinxSearch {
                 $key = $this->camel($key);
                 $this->{$key} = $val;
             }
+        }
+    }
+
+    /**
+     * Open a connection to sphinxApi
+     *
+     * @return void
+     */
+    protected function openSphinxApi()
+    {
+        if (!is_null($this->apiHost) && !is_null($this->apiPort)) {
+            $this->sphinxApi = new SphinxApi();
+            $this->sphinxApi->setServer($this->apiHost, $this->apiPort);
+        }
+    }
+
+    /**
+     * Open a connection to sphinxQL
+     *
+     * @return void
+     */
+    protected function openSphinxQL()
+    {
+        if (!is_null($this->qlHost) && !is_null($this->qlPort)) {
+            $this->connection = new Connection();
+            $this->connection->setParams(['host' => $this->qlHost, 'port' => $this->qlPort]);
+            $this->sphinxQL = new SphinxQL($this->connection);
         }
     }
 
@@ -149,5 +191,15 @@ class SphinxSearch {
     public function sphinxQL()
     {
         return $this->sphinxQL;
+    }
+
+    /**
+     * Create a new sphinx client api instance
+     *
+     * @return SphinxApi
+     */
+    public function sphinxApi()
+    {
+        return $this->sphinxApi;
     }
 }
