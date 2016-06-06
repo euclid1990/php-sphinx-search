@@ -35,7 +35,7 @@ class SphinxSearchServiceProvider extends ServiceProvider {
             __DIR__.'/../../config/sphinx_search.php', 'sphinx_search'
         );
 
-        // Bind google_suggest
+        // Bind sphinx_search
         $this->app->bind('sphinx_search', function($app)
         {
             return new SphinxSearch(
