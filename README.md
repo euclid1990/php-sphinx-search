@@ -82,6 +82,11 @@ for Laravel 5.1+
 ```
 php artisan config:publish euclid1990/php-sphinx-search
 ```
+- For Laravel 5.4 config:publish does not work. Use the below command instead.
+```
+php artisan vendor:publish
+```
+
 
 ## Usage
 
